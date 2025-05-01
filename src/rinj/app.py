@@ -7,9 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.environ.get(
-    "SECRET_KEY", str(uuid.uuid4())
-)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", str(uuid.uuid4()))
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
     "SQLALCHEMY_DATABASE_URI", "sqlite:///app.sqlite"
 )
@@ -31,4 +29,3 @@ with app.app_context():
     import rinj.views
 
     db.create_all()  # データベース作成
-

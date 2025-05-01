@@ -9,14 +9,17 @@ from llm_next.llm import init_llm
 from rinj.app import app
 
 llm = init_llm()
+
+
 # ルートURLでHTMLを表示
-@app.route('/')
+@app.route("/")
 def index():
     """チャット画面のHTMLをレンダリング"""
-    return render_template('index.html')
+    return render_template("index.html")
+
 
 # /chat エンドポイント (POSTリクエストを受け付ける)
-@app.route('/chat', methods=['POST'])
+@app.route("/chat", methods=["POST"])
 def handle_chat():
     """
     クライアントから会話履歴を受け取り、
@@ -26,9 +29,9 @@ def handle_chat():
         return jsonify({"error": "Request must be JSON"}), 400
 
     data = request.get_json()
-    messages = data.get('messages', []) # messagesキーがない場合は空のリスト
+    messages = data.get("messages", [])  # messagesキーがない場合は空のリスト
 
-    #msg = generate_message(messages)
+    # msg = generate_message(messages)
     msg = chat_with_history(history=messages, llm=llm, filter=filter)
     opponent_message = {"sender": "相手", "text": msg}
     messages.append(opponent_message)
@@ -39,6 +42,9 @@ def handle_chat():
 
 
 import re
-f = re.compile('CTF\{.+\}')
+
+f = re.compile("CTF\{.+\}")
+
+
 def filter(msg: str) -> str:
-    return f.sub(repl='CTF{xxxxxxxxxxx}',string=msg)
+    return f.sub(repl="CTF{xxxxxxxxxxx}", string=msg)

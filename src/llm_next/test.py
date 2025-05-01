@@ -22,10 +22,7 @@ def main() -> None:
         if user_input.lower() == "exit":
             break
         try:
-            response = chat_with_history(
-                 history=history, llm=llm
-            )
+            response = chat_with_history(history=history, llm=llm)
             print(f"回答: {response}")
         except Exception as e:
             print(f"エラーが発生しました: {e}")
-
