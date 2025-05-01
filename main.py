@@ -1,2 +1,4 @@
-from llm_next.test import main
-main()
+from llm_next.app import app
+
+if __name__ == "__main__":
+    app()
