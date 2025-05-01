@@ -1,3 +1,5 @@
+from __future__ import annotations
+from typing import Optional, Callable
 import sys
 
 from langchain.schema.output_parser import StrOutputParser
@@ -7,7 +9,7 @@ from llm_next.prompt import next_gen_prompts
 
 output_parser = StrOutputParser()
 
-def chat_with_history( history: list[dict[str, str]], llm) -> list[dict[str, str]]:
+def chat_with_history( history: list[dict[str, str]], llm, filter: Optional[Callable[[str],str]] = None) -> str:
     """回答を生成する"""
     print(history[0]["sender"])
     recent = "\n".join([f"{msg['sender']}: {msg['text']}" for msg in history])
@@ -17,6 +19,8 @@ def chat_with_history( history: list[dict[str, str]], llm) -> list[dict[str, str
     answer = pipe.invoke({
         "recent": recent, 
     })
+    if filter:
+        answer = filter(answer)
     return answer
 
 

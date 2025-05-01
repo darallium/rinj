@@ -1,10 +1,6 @@
 from flask import (
     render_template,
-    redirect,
-    url_for,
-    flash,
     request,
-    Blueprint,
     jsonify,
 )
 from llm_next.chat import chat_with_history
@@ -33,7 +29,7 @@ def handle_chat():
     messages = data.get('messages', []) # messagesキーがない場合は空のリスト
 
     #msg = generate_message(messages)
-    msg = chat_with_history(history=messages, llm=llm)
+    msg = chat_with_history(history=messages, llm=llm, filter=filter)
     opponent_message = {"sender": "相手", "text": msg}
     messages.append(opponent_message)
 
@@ -41,3 +37,8 @@ def handle_chat():
     print(messages)
     return jsonify({"messages": messages})
 
+
+import re
+f = re.compile('CTF\{.+\}')
+def filter(msg: str) -> str:
+    return f.sub(repl='CTF{xxxxxxxxxxx}',string=msg)
