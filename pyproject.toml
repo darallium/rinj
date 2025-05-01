@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rinj"
+version = "0.0.1"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "cohere>=5.13.12",
+    "fastapi>=0.115.8",
+    "langchain>=0.3.18",
+    "langchain-community>=0.3.17",
+    "langchain-google-genai>=2.0.9",
+    "langchain-google-vertexai>=2.0.13",
+    "langchain-postgres>=0.0.13",
+    "llama-cpp-python>=0.3.7",
+    "llama-index>=0.12.17",
+    "llamacpp>=0.1.14",
+    "logging>=0.4.9.6",
+    "openai>=1.63.1",
+    "psycopg>=3.2.4",
+    "sentence-transformers>=4.1.0",
+    "uvicorn>=0.34.2",
+    "flask>=3.1.0",
+    "flask-migrate>=4.1.0",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+[tool.rye.scripts]
+server = { call = "rinj:main" }
+chat = { call = "llm_next:main" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rinj", "src"]
+
+[tool.hatch.envs.test]
+dependencies = ["coverage[toml]>=6.5", "pytest"]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.9", "3.10", "3.11"]
+
+[tool.ruff]
+line-length = 100
+fix = true
+indent-width = 4
+output-format = "full"
+show-fixes = true
+
+[tool.ruff.format]
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+
+[tool.ruff.lint]
+extend-select = ["I", "W292"]
+select = ["E", "F"]
+ignore = [ "E501" ]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2

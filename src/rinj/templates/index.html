@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一対一チャット</title>
+    <style>
+        #chatbox {
+            height: 400px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .message.user {
+            background-color: #e1ffc7;
+            text-align: right;
+            margin-left: auto; /* 右寄せ */
+            max-width: 70%;
+        }
+        .message.opponent {
+            background-color: #f1f0f0;
+            text-align: left;
+            margin-right: auto; /* 左寄せ */
+            max-width: 70%;
+        }
+        #controls {
+            display: flex;
+        }
+        #messageInput {
+            flex-grow: 1;
+            padding: 8px;
+            margin-right: 5px;
+        }
+        #sendButton {
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>一対一チャット</h1>
+
+    <div id="chatbox">
+        <!-- 会話履歴はここに表示されます -->
+    </div>
+
+    <div id="controls">
+        <input type="text" id="messageInput" placeholder="メッセージを入力...">
+        <button id="sendButton">送信</button>
+    </div>
+
+    <!-- JavaScriptファイルを読み込む -->
+    <!-- url_forを使うことで、staticフォルダへのパスを自動生成 -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
